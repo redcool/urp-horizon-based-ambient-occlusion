@@ -10,6 +10,7 @@ namespace URPHBAO
         public string _CameraNormalsTexture = "_CameraNormalsTexture";
 
         [Header("DrawScene Pass")]
+        public bool isDrawScenePassEnabled = true;
         public RenderPassEvent renderPassEventOutputNormal = RenderPassEvent.AfterRenderingOpaques;
         public int renderPassEventOutputNormalOffset = 0;
 
@@ -19,6 +20,7 @@ namespace URPHBAO
         HBAORenderPass_AO aoPass;
 
         [Header("AO Pass")]
+        public bool isAOPassEnabled = true;
         public RenderPassEvent renderPassEventAO = RenderPassEvent.AfterRenderingOpaques;
         public int renderPassEventAOOffset = 0;
         public Material hbaoMat;
@@ -49,8 +51,11 @@ namespace URPHBAO
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            renderer.EnqueuePass(drawScenePass);
-            renderer.EnqueuePass(aoPass);
+            if (isDrawScenePassEnabled)
+                renderer.EnqueuePass(drawScenePass);
+
+            if (isAOPassEnabled)
+                renderer.EnqueuePass(aoPass);
         }
     }
 
