@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 148cb1d20d305d545b5eb70fca54bbcd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _NORMAL_FROM_DEPTH
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -26,10 +27,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _AORangeMax: 1
-    - _AORangeMin: 0
-    - _DirCount: 32
-    - _StepCount: 10
-    - _StepScale: 0.094
+    - _AORangeMin: 0.224
+    - _DirCount: 10
+    - _NormalFromDepth: 0
+    - _StepCount: 4
+    - _StepScale: 0.1158
     m_Colors:
     - _AORange: {r: 0.2, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

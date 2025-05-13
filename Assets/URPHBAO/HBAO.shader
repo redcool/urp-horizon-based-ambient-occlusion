@@ -12,6 +12,7 @@ Shader "Hidden/Unlit/HBAO"
 
         _DirCount("_DirCount",float) = 30
         _StepCount("_StepCount",float) = 20
+        [GroupToggle(,_NORMAL_FROM_DEPTH)] _NormalFromDepth("_NormalFromDepth",float) = 0        
     }
 
     HLSLINCLUDE
@@ -42,6 +43,7 @@ Shader "Hidden/Unlit/HBAO"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma shader_feature _NORMAL_FROM_DEPTH
 
             struct appdata
             {
@@ -95,6 +97,14 @@ Shader "Hidden/Unlit/HBAO"
             float3 GetScreenNormal(float2 uv){
                 return tex2D(_CameraNormalsTexture,uv).xyz*2-1;
             }
+            float3 CalcWorldNormal(float3 worldPos){
+                #if defined(UNITY_REVERSED_Z)
+                    float3 n = cross(ddx(worldPos),ddy(worldPos));
+                #else
+                    float3 n = cross(ddy(worldPos),ddx(worldPos));
+                #endif
+                return n;
+            }
 
             float4 frag (v2f i) : SV_Target
             {
@@ -103,7 +113,11 @@ Shader "Hidden/Unlit/HBAO"
                 float3 worldPos = ScreenToWorld(uv);
                 float3 viewPos = WorldToViewPos(worldPos);
                 float4 screenCol = GetScreenColor(uv);
+                #if defined(_NORMAL_FROM_DEPTH)
+                float3 worldNormal = CalcWorldNormal(worldPos);
+                #else
                 float3 worldNormal = (GetScreenNormal(uv));
+                #endif
                 float3 viewNormal = normalize(WorldToViewNormal(worldNormal));
 
                 float radiusSS = 64.0 / 512.0;

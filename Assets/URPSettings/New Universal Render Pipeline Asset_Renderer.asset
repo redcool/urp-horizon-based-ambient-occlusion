@@ -77,10 +77,16 @@ MonoBehaviour:
   _CameraNormalsTexture: _CameraNormalsTexture
   renderPassEventOutputNormal: 300
   renderPassEventOutputNormalOffset: 0
-  renderPassEventAO: 450
-  renderPassEventAOOffset: 0
   layerMask: -1
   shaderTagNames:
   - UniversalForward
   - SRPDefaultUnlit
+  renderPassEventAO: 450
+  renderPassEventAOOffset: 0
   hbaoMat: {fileID: 2100000, guid: 3eb1a30006790a044b7172f02d933466, type: 2}
+  aoRangeMin: 0.224
+  aoRangeMax: 1
+  stepScale: 0.1158
+  dirCount: 10
+  stepCount: 4
+  isNormalFromDepth: 1

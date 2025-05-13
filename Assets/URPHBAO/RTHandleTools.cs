@@ -15,7 +15,13 @@ namespace URPHBAO
 
         public static bool IsInvalid(this RTHandle rth, RenderTextureDescriptor desc)
         {
-            return rth == null || !rth.rt || rth.rt.width != desc.width || rth.rt.height != desc.height;
+            var needAlloc = rth == null || !rth.rt || rth.rt.width != desc.width || rth.rt.height != desc.height;
+            if (needAlloc && rth != null)
+            {
+                rth.Release();
+                rth = null;
+            }
+            return needAlloc;
         }
 
         public static bool TryCreateNormalTexture(RenderTextureDescriptor desc, string name)
