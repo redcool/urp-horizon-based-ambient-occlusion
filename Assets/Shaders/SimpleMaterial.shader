@@ -10,7 +10,7 @@
     {
         Pass
         {
-            Tags { "LightMode" = "ForwardAdd" }
+            // zclip false
             CGPROGRAM
 
             #pragma vertex vert
@@ -69,7 +69,6 @@
 
                 o.color = float4(color, 1.0);
                 o.normal = float4(N * 0.5 + 0.5, 1.0);
-
                 return o;
             }
 
@@ -77,5 +76,4 @@
         }
     }
 
-    Fallback "VertexLit"
 }
